@@ -12,6 +12,9 @@ import seaborn as sns
 
 from scipy.special import gamma
 
+__author__ = "Stanislav Khrapov"
+__email__ = "khrapovs@gmail.com"
+
 
 class SkewStudent(object):
 
@@ -31,21 +34,26 @@ class SkewStudent(object):
 
         """
         c = gamma((self.nup+1)/2)/((np.pi*(self.nup-2))**.5*gamma(self.nup/2))
-        a = 4*self.lam*c*((self.nup-2)/(self.nup-1))
+        a = 4*self.lam*c*(self.nup-2)/(self.nup-1)
         b = (1 + 3*self.lam**2 - a**2)**.5
 
-        pdf1 = b*c*(1 + 1/(self.nup-2)*((b*arg+a)/(1-self.lam))**2)**(-(self.nup+1)/2)
-        pdf2 = b*c*(1 + 1/(self.nup-2)*((b*arg+a)/(1+self.lam))**2)**(-(self.nup+1)/2)
+        pdf1 = b*c*(1 + 1/(self.nup-2)*((b*arg+a)/(1-self.lam))**2) \
+            **(-(self.nup+1)/2)
+        pdf2 = b*c*(1 + 1/(self.nup-2)*((b*arg+a)/(1+self.lam))**2) \
+            **(-(self.nup+1)/2)
 
-        return pdf1*(arg<(-a/b)) + pdf2*(arg>=(-a/b))
+        return pdf1 * (arg < -a/b) + pdf2 * (arg >= -a/b)
 
     def plot_density(self, arg=np.linspace(-2, 2, 100)):
+        """Plot probability density function.
 
+        """
         plt.plot(arg, self.pdf(arg))
         plt.show()
 
 
 if __name__ == '__main__':
 
+    sns.set_context('notebook')
     skewt = SkewStudent()
     skewt.plot_density()
