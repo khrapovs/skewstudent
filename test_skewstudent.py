@@ -8,7 +8,7 @@ from __future__ import print_function, division
 import unittest as ut
 import numpy as np
 
-from skewstudent import SkewStudent
+from SkewStudent import SkewStudent
 
 __author__ = "Stanislav Khrapov"
 __email__ = "khrapovs@gmail.com"
