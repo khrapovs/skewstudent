@@ -42,6 +42,16 @@ class SkewStudent(object):
     def pdf(self, arg):
         """Probability density function.
 
+        Parameters
+        ----------
+        arg : array
+            Grid of point to evaluate PDF at
+
+        Returns
+        -------
+        pdf : array
+            PDF values. Same shape as the input.
+
         """
         c = gamma((self.nup+1)/2)/((np.pi*(self.nup-2))**.5*gamma(self.nup/2))
         a = 4*self.lam*c*(self.nup-2)/(self.nup-1)
