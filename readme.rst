@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/khrapovs/SkewStudent.svg?branch=master
+    :target: https://travis-ci.org/khrapovs/SkewStudent
+    
 Skewed Student distribution
 ===========================
 
