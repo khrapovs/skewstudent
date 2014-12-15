@@ -44,6 +44,17 @@ class ARGTestCase(ut.TestCase):
         self.assertEqual(pdf.shape[0], num)
         self.assertIsInstance(skewt.pdf(0), float)
 
+    def test_cdf(self):
+        """Test cdf method."""
+
+        skewt = SkewStudent()
+
+        num = 50
+        arg = np.linspace(-1, 1, 50)
+        cdf = skewt.cdf(arg)
+
+        self.assertEqual(cdf.shape[0], num)
+        self.assertIsInstance(skewt.cdf(0), float)
 
 if __name__ == '__main__':
     ut.main()
