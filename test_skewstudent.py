@@ -14,7 +14,7 @@ __author__ = "Stanislav Khrapov"
 __email__ = "khrapovs@gmail.com"
 
 
-class ARGTestCase(ut.TestCase):
+class SkewStudentTestCase(ut.TestCase):
 
     """Test SkewStudent distribution class."""
 
@@ -57,7 +57,7 @@ class ARGTestCase(ut.TestCase):
         self.assertIsInstance(skewt.cdf(0), float)
 
     def test_icdf(self):
-        """Test cdf method."""
+        """Test icdf method."""
 
         skewt = SkewStudent()
 
@@ -67,6 +67,28 @@ class ARGTestCase(ut.TestCase):
 
         self.assertEqual(icdf.shape[0], num)
         self.assertIsInstance(skewt.icdf(.5), float)
+
+    def test_rvs(self):
+        """Test icdf method."""
+
+        skewt = SkewStudent()
+
+        rvs = skewt.rvs()
+
+        self.assertIsInstance(rvs, float)
+
+        size = 2
+        rvs = skewt.rvs(size=size)
+
+        self.assertIsInstance(rvs, np.ndarray)
+        self.assertEqual(rvs.shape, (size, ))
+
+        size = (2, 3)
+        rvs = skewt.rvs(size=size)
+
+        self.assertIsInstance(rvs, np.ndarray)
+        self.assertEqual(rvs.shape, size)
+
 
 if __name__ == '__main__':
     ut.main()

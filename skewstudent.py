@@ -14,7 +14,7 @@ import matplotlib.pylab as plt
 import seaborn as sns
 
 from scipy.special import gamma
-from scipy.stats import t
+from scipy.stats import t, uniform
 
 __author__ = "Stanislav Khrapov"
 __email__ = "khrapovs@gmail.com"
@@ -128,6 +128,24 @@ class SkewStudent(object):
         else:
             return icdf
 
+    def rvs(self, size=1):
+        """Random variates with mean zero and unit variance.
+
+        Parameters
+        ----------
+        size : int or tuple
+            Size of output array
+
+        Returns
+        -------
+        rvs : array
+            Array of random variates
+
+        """
+        arg = uniform.rvs(size=size)
+        return self.icdf(arg)
+
+
     def plot_pdf(self, arg=np.linspace(-2, 2, 100)):
         """Plot probability density function.
 
@@ -142,12 +160,13 @@ class SkewStudent(object):
         plt.plot(arg, self.cdf(arg))
         plt.show()
 
-    def plot_icdf(self, arg=np.linspace(-2, 2, 100)):
+    def plot_icdf(self, arg=np.linspace(-.99, .99, 100)):
         """Plot inverse cumulative density function.
 
         """
         plt.plot(arg, self.icdf(arg))
         plt.show()
+
 
 if __name__ == '__main__':
 
@@ -155,4 +174,5 @@ if __name__ == '__main__':
     skewt = SkewStudent(nup=3, lam=-.5)
     skewt.plot_pdf()
     skewt.plot_cdf()
-    skewt.plot_icdf(np.linspace(-1, 1, 100))
+    skewt.plot_icdf()
+    print(skewt.rvs(size=10))
