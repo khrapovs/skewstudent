@@ -41,7 +41,7 @@ class SkewStudent(object):
         self.lam = lam
 
     def pdf(self, arg):
-        """Probability density function.
+        """Probability density function (PDF).
 
         Parameters
         ----------
@@ -66,7 +66,7 @@ class SkewStudent(object):
         return pdf1 * (arg < -a/b) + pdf2 * (arg >= -a/b)
 
     def cdf(self, arg):
-        """Cumulative density function.
+        """Cumulative density function (CDF).
 
         Parameters
         ----------
@@ -93,6 +93,41 @@ class SkewStudent(object):
 
         return cdf
 
+    def icdf(self, arg):
+        """Inverse cumulative density function.
+
+        Parameters
+        ----------
+        arg : array
+            Grid of point to evaluate ICDF at. Must belong to (0, 1)
+
+        Returns
+        -------
+        icdf : array
+            ICDF values. Same shape as the input.
+
+        """
+        arg = np.atleast_1d(arg)
+        c = gamma((self.nup+1)/2) / ((np.pi*(self.nup-2))**.5*gamma(self.nup/2))
+        a = 4*self.lam*c * (self.nup-2) / (self.nup-1)
+        b = (1 + 3*self.lam**2 - a**2)**.5
+
+        f1 = arg<(1-self.lam)/2
+        f2 = arg>=(1-self.lam)/2
+
+        icdf1 = (1-self.lam)/b * ((self.nup-2)/self.nup)**.5 \
+            * t.ppf(arg[f1]/(1-self.lam), self.nup)-a/b
+        icdf2 = (1+self.lam)/b * ((self.nup-2)/self.nup)**.5 \
+            * t.ppf(.5+1/(1+self.lam)*(arg[f2]-(1-self.lam)/2), self.nup)-a/b
+        icdf = -999.99*np.ones_like(arg)
+        icdf[f1] = icdf1
+        icdf[f2] = icdf2
+
+        if icdf.shape == (1, ):
+            return float(icdf)
+        else:
+            return icdf
+
     def plot_pdf(self, arg=np.linspace(-2, 2, 100)):
         """Plot probability density function.
 
@@ -101,12 +136,18 @@ class SkewStudent(object):
         plt.show()
 
     def plot_cdf(self, arg=np.linspace(-2, 2, 100)):
-        """Plot probability density function.
+        """Plot cumulative density function.
 
         """
         plt.plot(arg, self.cdf(arg))
         plt.show()
 
+    def plot_icdf(self, arg=np.linspace(-2, 2, 100)):
+        """Plot inverse cumulative density function.
+
+        """
+        plt.plot(arg, self.icdf(arg))
+        plt.show()
 
 if __name__ == '__main__':
 
@@ -114,3 +155,4 @@ if __name__ == '__main__':
     skewt = SkewStudent(nup=3, lam=-.5)
     skewt.plot_pdf()
     skewt.plot_cdf()
+    skewt.plot_icdf(np.linspace(-1, 1, 100))
