@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 """Skewed Student distribution.
 
+.. [1] Hansen, B. E. (1994). Autoregressive conditional density estimation.
+    International Economic Review, 35(3), 705–730.
+
 """
 
 from __future__ import print_function, division
@@ -24,6 +27,13 @@ class SkewStudent(object):
 
     def __init__(self, nup=10, lam=-.1):
         """Initialize the class.
+
+        Parameters
+        ----------
+        nup : float
+            Degrees of freedom
+        lam : float
+            Skewness
 
         """
         self.nup = nup
