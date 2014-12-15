@@ -150,12 +150,22 @@ class SkewStudent(object):
     def plot_pdf(self, arg=np.linspace(-2, 2, 100)):
         """Plot probability density function.
 
+        Parameters
+        ----------
+        arg : array
+            Grid of point to evaluate PDF at
+
         """
         plt.plot(arg, self.pdf(arg))
         plt.show()
 
     def plot_cdf(self, arg=np.linspace(-2, 2, 100)):
         """Plot cumulative density function.
+
+        Parameters
+        ----------
+        arg : array
+            Grid of point to evaluate CDF at
 
         """
         plt.plot(arg, self.cdf(arg))
@@ -164,12 +174,22 @@ class SkewStudent(object):
     def plot_icdf(self, arg=np.linspace(-.99, .99, 100)):
         """Plot inverse cumulative density function.
 
+        Parameters
+        ----------
+        arg : array
+            Grid of point to evaluate ICDF at
+
         """
         plt.plot(arg, self.icdf(arg))
         plt.show()
 
-    def plot_rvspdf(self, arg=np.linspace(-2, 2, 100), size=1e3):
+    def plot_rvspdf(self, arg=np.linspace(-2, 2, 100), size=1000):
         """Plot kernel density estimate of a random sample.
+
+        Parameters
+        ----------
+        arg : array
+            Grid of point to evaluate ICDF at. Must belong to (0, 1)
 
         """
         rvs = self.rvs(size=size)
