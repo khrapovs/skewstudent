@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SkewStudent class documentation &mdash; SkewStudent 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="SkewStudent 0.1 documentation" href="#" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="#">SkewStudent 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+<div class="section" id="module-SkewStudent">
+<span id="skewstudent-class-documentation"></span><h1>SkewStudent class documentation<a class="headerlink" href="#module-SkewStudent" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="SkewStudent.SkewStudent">
+<em class="property">class </em><tt class="descclassname">SkewStudent.</tt><tt class="descname">SkewStudent</tt><big>(</big><em>nup=10.0</em>, <em>lam=-0.1</em><big>)</big><a class="headerlink" href="#SkewStudent.SkewStudent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Skewed Student distribution class.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#SkewStudent.SkewStudent.cdf" title="SkewStudent.SkewStudent.cdf"><tt class="xref py py-obj docutils literal"><span class="pre">cdf</span></tt></a>(arg)</td>
+<td>Cumulative density function (CDF).</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#SkewStudent.SkewStudent.icdf" title="SkewStudent.SkewStudent.icdf"><tt class="xref py py-obj docutils literal"><span class="pre">icdf</span></tt></a>(arg)</td>
+<td>Inverse cumulative density function.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#SkewStudent.SkewStudent.pdf" title="SkewStudent.SkewStudent.pdf"><tt class="xref py py-obj docutils literal"><span class="pre">pdf</span></tt></a>(arg)</td>
+<td>Probability density function (PDF).</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">plot_cdf</span></tt>((arg=array([-2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;...)</td>
+<td>Plot cumulative density function.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">plot_icdf</span></tt>((arg=array([-0.99,&nbsp;-0.97,&nbsp;-0.95,&nbsp;...)</td>
+<td>Plot inverse cumulative density function.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">plot_pdf</span></tt>((arg=array([-2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;...)</td>
+<td>Plot probability density function.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">plot_rvspdf</span></tt>((arg=array([-2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;...)</td>
+<td>Plot kernel density estimate of a random sample.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#SkewStudent.SkewStudent.rvs" title="SkewStudent.SkewStudent.rvs"><tt class="xref py py-obj docutils literal"><span class="pre">rvs</span></tt></a>([size])</td>
+<td>Random variates with mean zero and unit variance.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="SkewStudent.SkewStudent.cdf">
+<tt class="descname">cdf</tt><big>(</big><em>arg</em><big>)</big><a class="headerlink" href="#SkewStudent.SkewStudent.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cumulative density function (CDF).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>arg</strong> : array</p>
+<blockquote>
+<div><p>Grid of point to evaluate CDF at</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>cdf</strong> : array</p>
+<blockquote class="last">
+<div><p>CDF values. Same shape as the input.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SkewStudent.SkewStudent.icdf">
+<tt class="descname">icdf</tt><big>(</big><em>arg</em><big>)</big><a class="headerlink" href="#SkewStudent.SkewStudent.icdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse cumulative density function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>arg</strong> : array</p>
+<blockquote>
+<div><p>Grid of point to evaluate ICDF at. Must belong to (0, 1)</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>icdf</strong> : array</p>
+<blockquote class="last">
+<div><p>ICDF values. Same shape as the input.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SkewStudent.SkewStudent.pdf">
+<tt class="descname">pdf</tt><big>(</big><em>arg</em><big>)</big><a class="headerlink" href="#SkewStudent.SkewStudent.pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Probability density function (PDF).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>arg</strong> : array</p>
+<blockquote>
+<div><p>Grid of point to evaluate PDF at</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>pdf</strong> : array</p>
+<blockquote class="last">
+<div><p>PDF values. Same shape as the input.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="SkewStudent.SkewStudent.rvs">
+<tt class="descname">rvs</tt><big>(</big><em>size=1</em><big>)</big><a class="headerlink" href="#SkewStudent.SkewStudent.rvs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Random variates with mean zero and unit variance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>size</strong> : int or tuple</p>
+<blockquote>
+<div><p>Size of output array</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>rvs</strong> : array</p>
+<blockquote class="last">
+<div><p>Array of random variates</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="#">SkewStudent 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Stanislav Khrapov.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
