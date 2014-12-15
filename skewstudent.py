@@ -81,14 +81,14 @@ class SkewStudent(object):
         """
         c = gamma((self.nup+1)/2) / \
             ((np.pi*(self.nup-2))**.5*gamma(self.nup/2))
-        a = 4*self.lam*c* (self.nup-2) / (self.nup-1)
+        a = 4*self.lam*c * (self.nup-2) / (self.nup-1)
         b = (1 + 3*self.lam**2 - a**2)**.5
 
         y1 = (b*arg+a)/(1-self.lam) * (self.nup/(self.nup-2))**.5
         y2 = (b*arg+a)/(1+self.lam) * (self.nup/(self.nup-2))**.5
 
-        cdf = (arg<-a/b) * (1-self.lam) * t.cdf(y1, self.nup)
-        cdf += (arg>=-a/b) * ((1-self.lam)/2
+        cdf = (arg < -a/b) * (1-self.lam) * t.cdf(y1, self.nup)
+        cdf += (arg >= -a/b) * ((1-self.lam)/2 \
             + (1+self.lam) * (t.cdf(y2, self.nup)-.5))
 
         return cdf
@@ -108,12 +108,14 @@ class SkewStudent(object):
 
         """
         arg = np.atleast_1d(arg)
-        c = gamma((self.nup+1)/2) / ((np.pi*(self.nup-2))**.5*gamma(self.nup/2))
+
+        c = gamma((self.nup+1)/2) / \
+            ((np.pi*(self.nup-2))**.5 * gamma(self.nup/2))
         a = 4*self.lam*c * (self.nup-2) / (self.nup-1)
         b = (1 + 3*self.lam**2 - a**2)**.5
 
-        f1 = arg<(1-self.lam)/2
-        f2 = arg>=(1-self.lam)/2
+        f1 = arg < (1-self.lam)/2
+        f2 = arg >= (1-self.lam)/2
 
         icdf1 = (1-self.lam)/b * ((self.nup-2)/self.nup)**.5 \
             * t.ppf(arg[f1]/(1-self.lam), self.nup)-a/b
@@ -145,7 +147,6 @@ class SkewStudent(object):
         arg = uniform.rvs(size=size)
         return self.icdf(arg)
 
-
     def plot_pdf(self, arg=np.linspace(-2, 2, 100)):
         """Plot probability density function.
 
@@ -167,6 +168,18 @@ class SkewStudent(object):
         plt.plot(arg, self.icdf(arg))
         plt.show()
 
+    def plot_rvspdf(self, arg=np.linspace(-2, 2, 100), size=1e3):
+        """Plot kernel density estimate of a random sample.
+
+        """
+        rvs = self.rvs(size=size)
+        xrange = [arg.min(), arg.max()]
+        sns.kdeplot(rvs, clip=xrange, label='kernel')
+        plt.plot(arg, self.pdf(arg), label='true pdf')
+        plt.xlim(xrange)
+        plt.legend()
+        plt.show()
+
 
 if __name__ == '__main__':
 
@@ -175,4 +188,4 @@ if __name__ == '__main__':
     skewt.plot_pdf()
     skewt.plot_cdf()
     skewt.plot_icdf()
-    print(skewt.rvs(size=10))
+    skewt.plot_rvspdf()
