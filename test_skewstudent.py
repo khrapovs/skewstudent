@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Testing suite for ARG class.
+"""Testing suite for SkewStudent class.
 
 """
 from __future__ import print_function, division
