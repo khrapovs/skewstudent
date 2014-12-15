@@ -25,7 +25,7 @@ class SkewStudent(object):
 
     """
 
-    def __init__(self, nup=10, lam=-.1):
+    def __init__(self, nup=10., lam=-.1):
         """Initialize the class.
 
         Parameters

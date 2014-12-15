@@ -1,1 +1,1 @@
-from .skewstudent import SkewT
+from .skewstudent import SkewStudent
