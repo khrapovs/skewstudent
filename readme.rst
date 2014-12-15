@@ -4,7 +4,7 @@
 Skewed Student distribution
 ===========================
 
-Skewed Student distribution of `Hansen (1994)`_
+Skewed Student distribution of [Hansen (1994)]_
 
 Python implementation of Andrew Patton's MatLab code (http://public.econ.duke.edu/~ap172/code.html)
 
