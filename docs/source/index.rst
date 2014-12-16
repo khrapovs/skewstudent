@@ -6,13 +6,16 @@
 .. toctree::
    :maxdepth: 1
 
+Skewed Student Distribution
+===========================
+
 Introduction
-============
+------------
 
 .. automodule:: skewstudent
 
-SkewStudent class documentation
-===============================
+Class documentation
+-------------------
 
 .. autoclass:: skewstudent.SkewStudent
 	:members: pdf, cdf, icdf, rvs

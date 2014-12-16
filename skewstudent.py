@@ -36,6 +36,24 @@ References
 .. [1] Hansen, B. E. (1994). Autoregressive conditional density estimation.
     *International Economic Review*, 35(3), 705–730.
 
+Examples
+--------
+>>> skewt = SkewStudent(nup=3, lam=-.5)
+>>> arg = [-.5, 0, .5]
+
+>>> print(skewt.pdf(arg))
+[ 0.29791106  0.53007599  0.72613873]
+
+>>> print(skewt.cdf(arg))
+[ 0.21056021  0.38664586  0.66350259]
+
+>>> print(skewt.icdf([.1, .5, .9]))
+[-0.9786634   0.19359403  0.79257129]
+
+>>> print(skewt.rvs(size=(2, 3)))
+[[ 0.02398666 -0.61867166 -1.25345387]
+ [-0.68277535 -0.30256514 -0.04516005]] #random
+
 """
 
 from __future__ import print_function, division
