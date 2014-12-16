@@ -8,7 +8,7 @@
 Skewed Student distribution
 ===========================
 
-Check out `Full documentation <http://skewstudent.readthedocs.org/en/latest/>`_
+Check out `Full documentation <http://skewstudent.readthedocs.org/en/latest/>`_.
 
 Skewed Student distribution of Hansen (1994) [1]_
 
