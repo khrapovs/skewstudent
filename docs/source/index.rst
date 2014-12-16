@@ -9,7 +9,7 @@
 SkewStudent class documentation
 ===============================
 
-.. automodule:: SkewStudent
+.. automodule:: skewstudent
 
-.. autoclass:: SkewStudent.SkewStudent
+.. autoclass:: skewstudent.SkewStudent
 	:members: pdf, cdf, icdf, rvs
