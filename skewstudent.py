@@ -14,7 +14,7 @@ The probability density function is given by
     \end{cases}
 
 where :math:`2<\eta<\infty`, and :math:`-1<\lambda<1`.
-The constants a, b, and c are given by
+The constants :math:`a`, :math:`b`, and :math:`c` are given by
 
 .. math::
 
@@ -232,7 +232,11 @@ class SkewStudent(object):
             Grid of point to evaluate PDF at
 
         """
-        plt.plot(arg, self.pdf(arg))
+        scale = (self.nup/(self.nup-2))**.5
+        plt.plot(arg, t.pdf(arg, self.nup, scale=1/scale),
+                 label='t distribution')
+        plt.plot(arg, self.pdf(arg), label='skew-t distribution')
+        plt.legend()
         plt.show()
 
     def plot_cdf(self, arg=np.linspace(-2, 2, 100)):
@@ -280,7 +284,7 @@ class SkewStudent(object):
 if __name__ == '__main__':
 
     sns.set_context('notebook')
-    skewt = SkewStudent(nup=3, lam=-.5)
+    skewt = SkewStudent(nup=3, lam=0)
     skewt.plot_pdf()
     skewt.plot_cdf()
     skewt.plot_icdf()

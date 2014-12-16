@@ -7,6 +7,7 @@ from __future__ import print_function, division
 
 import unittest as ut
 import numpy as np
+from scipy.stats import t
 
 from skewstudent import SkewStudent
 
@@ -88,6 +89,19 @@ class SkewStudentTestCase(ut.TestCase):
 
         self.assertIsInstance(rvs, np.ndarray)
         self.assertEqual(rvs.shape, size)
+
+    def test_compare_with_t(self):
+        """Compare with standard t distribution."""
+
+        nup = 5
+        skewt = SkewStudent(nup=nup, lam=0)
+        scale = 1/(nup/(nup-2))**.5
+        standt = t(nup, scale=scale)
+        arg = np.linspace(-2, 2, 100)
+
+        np.testing.assert_array_almost_equal(skewt.pdf(arg), standt.pdf(arg))
+        np.testing.assert_array_almost_equal(skewt.cdf(arg), standt.cdf(arg))
+        np.testing.assert_array_almost_equal(skewt.icdf(arg), standt.ppf(arg))
 
 
 if __name__ == '__main__':
