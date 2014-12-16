@@ -2,6 +2,32 @@
 # -*- coding: utf-8 -*-
 """Skewed Student distribution [1].
 
+The probability density function is given by
+
+.. math::
+    f\left(x|\eta,\lambda\right)=\begin{cases}
+    bc\left(1+\frac{1}{\eta-2}\left(\frac{a+bx}{1-\lambda}\right)^{2}\right)
+        ^{-\left(\eta+1\right)/2}, & x<-a/b,\\
+    bc\left(1+\frac{1}{\eta-2}\left(\frac{a+bx}{1+\lambda}\right)^{2}\right)
+        ^{-\left(\eta+1\right)/2}, & x\geq-a/b,
+    \end{cases}
+
+where :math:`2<\eta<\infty`, and :math:`-1<\lambda<1`.
+The constants a, b, and c are given by
+
+.. math::
+    a=4\lambda c\frac{\eta-2}{\eta-1},\quad b^{2}=1+3\lambda^{2}-a^{2},
+
+and
+
+.. math::
+    c=\frac{\Gamma\left(\frac{\eta+1}{2}\right)}{\sqrt{\pi\left(\eta-2\right)}
+        \Gamma\left(\frac{\eta}{2}\right)}.
+
+
+A random variable with this density has mean zero and unit variance.
+The distribution becomes Student t distribution when :math:`\lambda=0`.
+
 References
 ----------
 
@@ -27,31 +53,6 @@ class SkewStudent(object):
 
     r"""Skewed Student distribution class.
 
-    The probability density function is given by
-
-    .. math::
-        f\left(x|\eta,\lambda\right)=\begin{cases}
-        bc\left(1+\frac{1}{\eta-2}\left(\frac{a+bx}{1-\lambda}\right)^{2}\right)
-            ^{-\left(\eta+1\right)/2}, & x<-a/b,\\
-        bc\left(1+\frac{1}{\eta-2}\left(\frac{a+bx}{1+\lambda}\right)^{2}\right)
-            ^{-\left(\eta+1\right)/2}, & x\geq-a/b,
-        \end{cases}
-
-    where :math:`2<\eta<\infty`, and :math:`-1<\lambda<1`.
-    The constants a, b, and c are given by
-
-    .. math::
-        a=4\lambda c\frac{\eta-2}{\eta-1},\quad b^{2}=1+3\lambda^{2}-a^{2},
-
-    and
-
-    .. math::
-        c=\frac{\Gamma\left(\frac{\eta+1}{2}\right)}{\sqrt{\pi\left(\eta-2\right)}
-            \Gamma\left(\frac{\eta}{2}\right)}.
- 
-
-    A random variable with this density has mean zero and unit variance.
-    The distribution becomes Student t distribution when :math:`\lambda=0`.
 
     """
 
