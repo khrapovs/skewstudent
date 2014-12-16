@@ -1,8 +1,14 @@
 .. image:: https://travis-ci.org/khrapovs/SkewStudent.svg?branch=master
     :target: https://travis-ci.org/khrapovs/SkewStudent
-    
+
+.. image:: https://readthedocs.org/projects/skewstudent/badge/?version=latest
+	:target: https://readthedocs.org/projects/skewstudent/?badge=latest
+	:alt: Documentation Status
+
 Skewed Student distribution
 ===========================
+
+Check out `Full documentation <http://skewstudent.readthedocs.org/en/latest/>`_
 
 Skewed Student distribution of Hansen (1994) [1]_
 
