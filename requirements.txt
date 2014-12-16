@@ -1,5 +1,1 @@
 numpydoc
-numpy
-matplotlib
-scipy
-seaborn
