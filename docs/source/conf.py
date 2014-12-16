@@ -25,7 +25,6 @@ import os
 #sys.path.insert(0, os.path.abspath('..'))
 #sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../../..'))
-sys.path.insert(0, os.path.abspath('/var/build/user_builds/'))
 
 import mock
 
