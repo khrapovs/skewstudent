@@ -220,8 +220,7 @@ class SkewStudent(object):
             Array of random variates
 
         """
-        arg = uniform.rvs(size=size)
-        return self.icdf(arg)
+        return self.icdf(uniform.rvs(size=size))
 
     def plot_pdf(self, arg=np.linspace(-2, 2, 100)):
         """Plot probability density function.
@@ -248,7 +247,11 @@ class SkewStudent(object):
             Grid of point to evaluate CDF at
 
         """
-        plt.plot(arg, self.cdf(arg))
+        scale = (self.nup/(self.nup-2))**.5
+        plt.plot(arg, t.cdf(arg, self.nup, scale=1/scale),
+                 label='t distribution')
+        plt.plot(arg, self.cdf(arg), label='skew-t distribution')
+        plt.legend()
         plt.show()
 
     def plot_icdf(self, arg=np.linspace(-.99, .99, 100)):
@@ -260,7 +263,11 @@ class SkewStudent(object):
             Grid of point to evaluate ICDF at
 
         """
-        plt.plot(arg, self.icdf(arg))
+        scale = (self.nup/(self.nup-2))**.5
+        plt.plot(arg, t.ppf(arg, self.nup, scale=1/scale),
+                 label='t distribution')
+        plt.plot(arg, self.icdf(arg), label='skew-t distribution')
+        plt.legend()
         plt.show()
 
     def plot_rvspdf(self, arg=np.linspace(-2, 2, 100), size=1000):
@@ -284,7 +291,7 @@ class SkewStudent(object):
 if __name__ == '__main__':
 
     sns.set_context('notebook')
-    skewt = SkewStudent(nup=3, lam=0)
+    skewt = SkewStudent(nup=3, lam=-.5)
     skewt.plot_pdf()
     skewt.plot_cdf()
     skewt.plot_icdf()
