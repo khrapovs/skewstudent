@@ -1,1 +1,1 @@
-numpydoc
+numpydoc, numpy, matplotlib, scipy, seaborn
