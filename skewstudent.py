@@ -51,7 +51,7 @@ __email__ = "khrapovs@gmail.com"
 
 class SkewStudent(object):
 
-    r"""Skewed Student distribution class.
+    """Skewed Student distribution class.
 
 
     """
