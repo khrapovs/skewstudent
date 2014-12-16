@@ -55,6 +55,23 @@ class SkewStudent(object):
 
     """Skewed Student distribution class.
 
+    Attributes
+    ----------
+    nup : float
+        Degrees of freedom. 2 < \eta < \infty
+    lam : float
+        Skewness. -1 < \lambda < 1
+
+    Methods
+    -------
+    pdf
+        Probability density function (PDF)
+    cdf
+        Cumulative density function (CDF)
+    icdf
+        Inverse cumulative density function (ICDF)
+    rvs
+        Random variates with mean zero and unit variance
 
     """
 
@@ -155,7 +172,7 @@ class SkewStudent(object):
         return cdf
 
     def icdf(self, arg):
-        """Inverse cumulative density function.
+        """Inverse cumulative density function (ICDF).
 
         Parameters
         ----------
