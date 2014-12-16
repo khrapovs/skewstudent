@@ -9,10 +9,10 @@
 Introduction
 ============
 
-.. automodule:: skewstudent.skewstudent
+.. automodule:: skewstudent
 
 SkewStudent class documentation
 ===============================
 
-.. autoclass:: skewstudent.skewstudent.SkewStudent
+.. autoclass:: skewstudent.SkewStudent
 	:members: pdf, cdf, icdf, rvs
