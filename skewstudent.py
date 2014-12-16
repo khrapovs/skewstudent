@@ -72,6 +72,37 @@ class SkewStudent(object):
         self.nup = nup
         self.lam = lam
 
+    def __const_a(self):
+        """Compute a constant.
+
+        Returns
+        -------
+        a : float
+
+        """
+        return 4*self.lam*self.__const_c()*(self.nup-2)/(self.nup-1)
+
+    def __const_b(self):
+        """Compute b constant.
+
+        Returns
+        -------
+        b : float
+
+        """
+        return (1 + 3*self.lam**2 - self.__const_a()**2)**.5
+
+    def __const_c(self):
+        """Compute c constant.
+
+        Returns
+        -------
+        c : float
+
+        """
+        return gamma((self.nup+1)/2) \
+            / ((np.pi*(self.nup-2))**.5*gamma(self.nup/2))
+
     def pdf(self, arg):
         """Probability density function (PDF).
 
@@ -86,9 +117,9 @@ class SkewStudent(object):
             PDF values. Same shape as the input.
 
         """
-        c = gamma((self.nup+1)/2)/((np.pi*(self.nup-2))**.5*gamma(self.nup/2))
-        a = 4*self.lam*c*(self.nup-2)/(self.nup-1)
-        b = (1 + 3*self.lam**2 - a**2)**.5
+        c = self.__const_c()
+        a = self.__const_a()
+        b = self.__const_b()
 
         pdf1 = b*c*(1 + 1/(self.nup-2)*((b*arg+a)/(1-self.lam))**2) \
             **(-(self.nup+1)/2)
@@ -111,10 +142,8 @@ class SkewStudent(object):
             CDF values. Same shape as the input.
 
         """
-        c = gamma((self.nup+1)/2) / \
-            ((np.pi*(self.nup-2))**.5*gamma(self.nup/2))
-        a = 4*self.lam*c * (self.nup-2) / (self.nup-1)
-        b = (1 + 3*self.lam**2 - a**2)**.5
+        a = self.__const_a()
+        b = self.__const_b()
 
         y1 = (b*arg+a)/(1-self.lam) * (self.nup/(self.nup-2))**.5
         y2 = (b*arg+a)/(1+self.lam) * (self.nup/(self.nup-2))**.5
@@ -141,10 +170,8 @@ class SkewStudent(object):
         """
         arg = np.atleast_1d(arg)
 
-        c = gamma((self.nup+1)/2) / \
-            ((np.pi*(self.nup-2))**.5 * gamma(self.nup/2))
-        a = 4*self.lam*c * (self.nup-2) / (self.nup-1)
-        b = (1 + 3*self.lam**2 - a**2)**.5
+        a = self.__const_a()
+        b = self.__const_b()
 
         f1 = arg < (1-self.lam)/2
         f2 = arg >= (1-self.lam)/2
