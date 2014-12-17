@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-r"""Skewed Student distribution [1].
+r"""Skewed Student distribution [1]_.
 
 The probability density function is given by
 
