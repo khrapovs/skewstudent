@@ -179,12 +179,11 @@ class SkewStudent(object):
         a = self.__const_a()
         b = self.__const_b()
 
-        y = (b*arg+a)/(1+np.sign(arg+a/b)*self.lam) \
-            * (self.eta/(self.eta-2))**.5
+        y = (b*arg+a)/(1+np.sign(arg+a/b)*self.lam) * (1-2/self.eta)**(-.5)
         cond = arg < -a/b
 
         return cond * (1-self.lam) * t.cdf(y, self.eta) \
-            + ~cond * ((1-self.lam)/2 + (1+self.lam) * (t.cdf(y, self.eta)-.5))
+            + ~cond * (-self.lam + (1+self.lam) * t.cdf(y, self.eta))
 
     def icdf(self, arg):
         """Inverse cumulative density function (ICDF).
@@ -207,14 +206,13 @@ class SkewStudent(object):
 
         cond = arg < (1-self.lam)/2
 
-        icdf1 = (1-self.lam)/b * ((self.eta-2)/self.eta)**.5 \
-            * t.ppf(arg[cond]/(1-self.lam), self.eta)-a/b
-        icdf2 = (1+self.lam)/b * ((self.eta-2)/self.eta)**.5 \
-            * t.ppf(.5+1/(1+self.lam) \
-            *(arg[~cond]-(1-self.lam)/2), self.eta)-a/b
+        icdf1 = t.ppf(arg[cond]/(1-self.lam), self.eta)
+        icdf2 = t.ppf(.5+(arg[~cond]-(1-self.lam)/2)/(1+self.lam), self.eta)
         icdf = -999.99*np.ones_like(arg)
         icdf[cond] = icdf1
         icdf[~cond] = icdf2
+        icdf = (icdf * (1+np.sign(arg-(1-self.lam)/2)*self.lam) \
+            * (1-2/self.eta)**.5 - a)/b
 
         if icdf.shape == (1, ):
             return float(icdf)
@@ -269,7 +267,7 @@ class SkewStudent(object):
         plt.legend()
         plt.show()
 
-    def plot_icdf(self, arg=np.linspace(-.99, .99, 100)):
+    def plot_icdf(self, arg=np.linspace(.01, .99, 100)):
         """Plot inverse cumulative density function.
 
         Parameters
