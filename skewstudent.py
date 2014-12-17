@@ -19,13 +19,8 @@ The constants :math:`a`, :math:`b`, and :math:`c` are given by
 .. math::
 
     a=4\lambda c\frac{\eta-2}{\eta-1},\quad b^{2}=1+3\lambda^{2}-a^{2},
-
-and
-
-.. math::
-
-    c=\frac{\Gamma\left(\frac{\eta+1}{2}\right)}{\sqrt{\pi\left(\eta-2\right)}
-        \Gamma\left(\frac{\eta}{2}\right)}.
+        \quad c=\frac{\Gamma\left(\frac{\eta+1}{2}\right)}
+        {\sqrt{\pi\left(\eta-2\right)}\Gamma\left(\frac{\eta}{2}\right)}.
 
 A random variable with this density has mean zero and unit variance.
 The distribution becomes Student t distribution when :math:`\lambda=0`.

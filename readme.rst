@@ -10,7 +10,7 @@ Skewed Student distribution
 
 Check out `full documentation <http://skewstudent.readthedocs.org/en/latest/>`_.
 
-Skewed Student distribution of Hansen (1994) [1]_
+Skewed Student distribution of Hansen (1994) [1]_.
 
 Python implementation of `Andrew Patton's MatLab code <http://public.econ.duke.edu/~ap172/code.html>`_.
 
