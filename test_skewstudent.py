@@ -24,13 +24,13 @@ class SkewStudentTestCase(ut.TestCase):
 
         skewt = SkewStudent()
 
-        self.assertIsInstance(skewt.nup, float)
+        self.assertIsInstance(skewt.eta, float)
         self.assertIsInstance(skewt.lam, float)
 
-        nup, lam = 5., -.2
-        skewt = SkewStudent(nup=nup, lam=lam)
+        eta, lam = 5., -.2
+        skewt = SkewStudent(eta=eta, lam=lam)
 
-        self.assertEqual(skewt.nup, nup)
+        self.assertEqual(skewt.eta, eta)
         self.assertEqual(skewt.lam, lam)
 
     def test_pdf(self):
@@ -93,10 +93,10 @@ class SkewStudentTestCase(ut.TestCase):
     def test_compare_with_t(self):
         """Compare with standard t distribution."""
 
-        nup = 5
-        skewt = SkewStudent(nup=nup, lam=0)
-        scale = 1/(nup/(nup-2))**.5
-        standt = t(nup, scale=scale)
+        eta = 5
+        skewt = SkewStudent(eta=eta, lam=0)
+        scale = 1/(eta/(eta-2))**.5
+        standt = t(eta, scale=scale)
         arg = np.linspace(-2, 2, 100)
 
         np.testing.assert_array_almost_equal(skewt.pdf(arg), standt.pdf(arg))

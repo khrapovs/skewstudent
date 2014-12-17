@@ -38,7 +38,7 @@ References
 
 Examples
 --------
->>> skewt = SkewStudent(nup=3, lam=-.5)
+>>> skewt = SkewStudent(eta=3, lam=-.5)
 >>> arg = [-.5, 0, .5]
 
 >>> print(skewt.pdf(arg))
@@ -75,10 +75,10 @@ class SkewStudent(object):
 
     Attributes
     ----------
-    nup : float
-        Degrees of freedom. 2 < \eta < \infty
+    eta : float
+        Degrees of freedom. :math:`2 < \eta < \infty`
     lam : float
-        Skewness. -1 < \lambda < 1
+        Skewness. :math:`-1 < \lambda < 1`
 
     Methods
     -------
@@ -93,18 +93,18 @@ class SkewStudent(object):
 
     """
 
-    def __init__(self, nup=10., lam=-.1):
+    def __init__(self, eta=10., lam=-.1):
         """Initialize the class.
 
         Parameters
         ----------
-        nup : float
-            Degrees of freedom. 2 < \eta < \infty
+        eta : float
+            Degrees of freedom. :math:`2 < \eta < \infty`
         lam : float
-            Skewness. -1 < \lambda < 1
+            Skewness. :math:`-1 < \lambda < 1`
 
         """
-        self.nup = nup
+        self.eta = eta
         self.lam = lam
 
     def __const_a(self):
@@ -115,7 +115,7 @@ class SkewStudent(object):
         a : float
 
         """
-        return 4*self.lam*self.__const_c()*(self.nup-2)/(self.nup-1)
+        return 4*self.lam*self.__const_c()*(self.eta-2)/(self.eta-1)
 
     def __const_b(self):
         """Compute b constant.
@@ -135,8 +135,8 @@ class SkewStudent(object):
         c : float
 
         """
-        return gamma((self.nup+1)/2) \
-            / ((np.pi*(self.nup-2))**.5*gamma(self.nup/2))
+        return gamma((self.eta+1)/2) \
+            / ((np.pi*(self.eta-2))**.5*gamma(self.eta/2))
 
     def pdf(self, arg):
         """Probability density function (PDF).
@@ -156,10 +156,10 @@ class SkewStudent(object):
         a = self.__const_a()
         b = self.__const_b()
 
-        pdf1 = b*c*(1 + 1/(self.nup-2)*((b*arg+a)/(1-self.lam))**2) \
-            **(-(self.nup+1)/2)
-        pdf2 = b*c*(1 + 1/(self.nup-2)*((b*arg+a)/(1+self.lam))**2) \
-            **(-(self.nup+1)/2)
+        pdf1 = b*c*(1 + 1/(self.eta-2)*((b*arg+a)/(1-self.lam))**2) \
+            **(-(self.eta+1)/2)
+        pdf2 = b*c*(1 + 1/(self.eta-2)*((b*arg+a)/(1+self.lam))**2) \
+            **(-(self.eta+1)/2)
 
         return pdf1 * (arg < -a/b) + pdf2 * (arg >= -a/b)
 
@@ -180,12 +180,12 @@ class SkewStudent(object):
         a = self.__const_a()
         b = self.__const_b()
 
-        y1 = (b*arg+a)/(1-self.lam) * (self.nup/(self.nup-2))**.5
-        y2 = (b*arg+a)/(1+self.lam) * (self.nup/(self.nup-2))**.5
+        y1 = (b*arg+a)/(1-self.lam) * (self.eta/(self.eta-2))**.5
+        y2 = (b*arg+a)/(1+self.lam) * (self.eta/(self.eta-2))**.5
 
-        cdf = (arg < -a/b) * (1-self.lam) * t.cdf(y1, self.nup)
+        cdf = (arg < -a/b) * (1-self.lam) * t.cdf(y1, self.eta)
         cdf += (arg >= -a/b) * ((1-self.lam)/2 \
-            + (1+self.lam) * (t.cdf(y2, self.nup)-.5))
+            + (1+self.lam) * (t.cdf(y2, self.eta)-.5))
 
         return cdf
 
@@ -211,10 +211,10 @@ class SkewStudent(object):
         f1 = arg < (1-self.lam)/2
         f2 = arg >= (1-self.lam)/2
 
-        icdf1 = (1-self.lam)/b * ((self.nup-2)/self.nup)**.5 \
-            * t.ppf(arg[f1]/(1-self.lam), self.nup)-a/b
-        icdf2 = (1+self.lam)/b * ((self.nup-2)/self.nup)**.5 \
-            * t.ppf(.5+1/(1+self.lam)*(arg[f2]-(1-self.lam)/2), self.nup)-a/b
+        icdf1 = (1-self.lam)/b * ((self.eta-2)/self.eta)**.5 \
+            * t.ppf(arg[f1]/(1-self.lam), self.eta)-a/b
+        icdf2 = (1+self.lam)/b * ((self.eta-2)/self.eta)**.5 \
+            * t.ppf(.5+1/(1+self.lam)*(arg[f2]-(1-self.lam)/2), self.eta)-a/b
         icdf = -999.99*np.ones_like(arg)
         icdf[f1] = icdf1
         icdf[f2] = icdf2
@@ -249,8 +249,8 @@ class SkewStudent(object):
             Grid of point to evaluate PDF at
 
         """
-        scale = (self.nup/(self.nup-2))**.5
-        plt.plot(arg, t.pdf(arg, self.nup, scale=1/scale),
+        scale = (self.eta/(self.eta-2))**.5
+        plt.plot(arg, t.pdf(arg, self.eta, scale=1/scale),
                  label='t distribution')
         plt.plot(arg, self.pdf(arg), label='skew-t distribution')
         plt.legend()
@@ -265,8 +265,8 @@ class SkewStudent(object):
             Grid of point to evaluate CDF at
 
         """
-        scale = (self.nup/(self.nup-2))**.5
-        plt.plot(arg, t.cdf(arg, self.nup, scale=1/scale),
+        scale = (self.eta/(self.eta-2))**.5
+        plt.plot(arg, t.cdf(arg, self.eta, scale=1/scale),
                  label='t distribution')
         plt.plot(arg, self.cdf(arg), label='skew-t distribution')
         plt.legend()
@@ -281,8 +281,8 @@ class SkewStudent(object):
             Grid of point to evaluate ICDF at
 
         """
-        scale = (self.nup/(self.nup-2))**.5
-        plt.plot(arg, t.ppf(arg, self.nup, scale=1/scale),
+        scale = (self.eta/(self.eta-2))**.5
+        plt.plot(arg, t.ppf(arg, self.eta, scale=1/scale),
                  label='t distribution')
         plt.plot(arg, self.icdf(arg), label='skew-t distribution')
         plt.legend()
@@ -309,7 +309,7 @@ class SkewStudent(object):
 if __name__ == '__main__':
 
     sns.set_context('notebook')
-    skewt = SkewStudent(nup=3, lam=-.5)
+    skewt = SkewStudent(eta=3, lam=-.5)
     skewt.plot_pdf()
     skewt.plot_cdf()
     skewt.plot_icdf()
