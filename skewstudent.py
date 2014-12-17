@@ -181,10 +181,10 @@ class SkewStudent(object):
 
         y = (b*arg+a)/(1+np.sign(arg+a/b)*self.lam) \
             * (self.eta/(self.eta-2))**.5
+        cond = arg < -a/b
 
-        return (arg < -a/b) * (1-self.lam) * t.cdf(y, self.eta) \
-            + (arg >= -a/b) * ((1-self.lam)/2 \
-            + (1+self.lam) * (t.cdf(y, self.eta)-.5))
+        return cond * (1-self.lam) * t.cdf(y, self.eta) \
+            + ~cond * ((1-self.lam)/2 + (1+self.lam) * (t.cdf(y, self.eta)-.5))
 
     def icdf(self, arg):
         """Inverse cumulative density function (ICDF).
@@ -205,16 +205,16 @@ class SkewStudent(object):
         a = self.__const_a()
         b = self.__const_b()
 
-        f1 = arg < (1-self.lam)/2
-        f2 = arg >= (1-self.lam)/2
+        cond = arg < (1-self.lam)/2
 
         icdf1 = (1-self.lam)/b * ((self.eta-2)/self.eta)**.5 \
-            * t.ppf(arg[f1]/(1-self.lam), self.eta)-a/b
+            * t.ppf(arg[cond]/(1-self.lam), self.eta)-a/b
         icdf2 = (1+self.lam)/b * ((self.eta-2)/self.eta)**.5 \
-            * t.ppf(.5+1/(1+self.lam)*(arg[f2]-(1-self.lam)/2), self.eta)-a/b
+            * t.ppf(.5+1/(1+self.lam) \
+            *(arg[~cond]-(1-self.lam)/2), self.eta)-a/b
         icdf = -999.99*np.ones_like(arg)
-        icdf[f1] = icdf1
-        icdf[f2] = icdf2
+        icdf[cond] = icdf1
+        icdf[~cond] = icdf2
 
         if icdf.shape == (1, ):
             return float(icdf)
