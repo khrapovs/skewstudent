@@ -151,7 +151,7 @@ class SkewStudent(object):
 
         Returns
         -------
-        pdf : array
+        array
             PDF values. Same shape as the input.
 
         """
@@ -159,12 +159,8 @@ class SkewStudent(object):
         a = self.__const_a()
         b = self.__const_b()
 
-        pdf1 = b*c*(1 + 1/(self.eta-2)*((b*arg+a)/(1-self.lam))**2) \
-            **(-(self.eta+1)/2)
-        pdf2 = b*c*(1 + 1/(self.eta-2)*((b*arg+a)/(1+self.lam))**2) \
-            **(-(self.eta+1)/2)
-
-        return pdf1 * (arg < -a/b) + pdf2 * (arg >= -a/b)
+        return b*c*(1 + 1/(self.eta-2) \
+            *((b*arg+a)/(1+np.sign(arg+a/b)*self.lam))**2)**(-(self.eta+1)/2)
 
     def cdf(self, arg):
         """Cumulative density function (CDF).
@@ -176,21 +172,19 @@ class SkewStudent(object):
 
         Returns
         -------
-        cdf : array
+        array
             CDF values. Same shape as the input.
 
         """
         a = self.__const_a()
         b = self.__const_b()
 
-        y1 = (b*arg+a)/(1-self.lam) * (self.eta/(self.eta-2))**.5
-        y2 = (b*arg+a)/(1+self.lam) * (self.eta/(self.eta-2))**.5
+        y = (b*arg+a)/(1+np.sign(arg+a/b)*self.lam) \
+            * (self.eta/(self.eta-2))**.5
 
-        cdf = (arg < -a/b) * (1-self.lam) * t.cdf(y1, self.eta)
-        cdf += (arg >= -a/b) * ((1-self.lam)/2 \
-            + (1+self.lam) * (t.cdf(y2, self.eta)-.5))
-
-        return cdf
+        return (arg < -a/b) * (1-self.lam) * t.cdf(y, self.eta) \
+            + (arg >= -a/b) * ((1-self.lam)/2 \
+            + (1+self.lam) * (t.cdf(y, self.eta)-.5))
 
     def icdf(self, arg):
         """Inverse cumulative density function (ICDF).
@@ -202,7 +196,7 @@ class SkewStudent(object):
 
         Returns
         -------
-        icdf : array
+        array
             ICDF values. Same shape as the input.
 
         """
@@ -237,7 +231,7 @@ class SkewStudent(object):
 
         Returns
         -------
-        rvs : array
+        array
             Array of random variates
 
         """
