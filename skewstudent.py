@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-r"""Skewed Student distribution [1]_.
+r"""
+Skewed Student Distribution
+===========================
+
+Introduction
+------------
+
+The distribution was proposed in [1]_.
 
 The probability density function is given by
 
