@@ -1,6 +1,5 @@
-.. image:: https://readthedocs.org/projects/skewstudent/badge/?version=latest
-	:target: https://readthedocs.org/projects/skewstudent/?badge=latest
-	:alt: Documentation Status
+.. image:: https://travis-ci.org/khrapovs/skewstudent.svg?branch=master
+    :target: https://travis-ci.org/khrapovs/skewstudent
 
 .. image:: https://readthedocs.org/projects/skewstudent/badge/?version=latest
 	:target: https://readthedocs.org/projects/skewstudent/?badge=latest
