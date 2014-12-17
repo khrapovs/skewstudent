@@ -6,12 +6,6 @@
 .. toctree::
    :maxdepth: 1
 
-Skewed Student Distribution
-===========================
-
-Introduction
-------------
-
 .. automodule:: skewstudent
 
 Class documentation
