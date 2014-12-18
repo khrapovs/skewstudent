@@ -6,7 +6,7 @@
 .. toctree::
    :maxdepth: 1
 
-.. automodule:: skewstudent
+.. automodule:: skewstudent.skewstudent
 
 Class documentation
 -------------------
