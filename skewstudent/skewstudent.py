@@ -68,6 +68,8 @@ import seaborn as sns
 from scipy.special import gamma
 from scipy.stats import t, uniform
 
+__all__ = ['SkewStudent']
+
 __author__ = "Stanislav Khrapov"
 __email__ = "khrapovs@gmail.com"
 
