@@ -11,5 +11,5 @@
 Class documentation
 -------------------
 
-.. autoclass:: skewstudent.SkewStudent
+.. autoclass:: skewstudent.skewstudent.SkewStudent
 	:members: pdf, cdf, icdf, rvs
