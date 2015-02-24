@@ -305,7 +305,7 @@ class SkewStudent(object):
 
 if __name__ == '__main__':
 
-    sns.set_context('notebook')
+    sns.set_context('paper')
     skewt = SkewStudent(eta=3, lam=-.5)
     skewt.plot_pdf()
     skewt.plot_cdf()
