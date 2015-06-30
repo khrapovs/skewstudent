@@ -50,7 +50,7 @@ Examples
 >>> print(skewt.cdf(arg))
 [ 0.21056021  0.38664586  0.66350259]
 
->>> print(skewt.icdf([.1, .5, .9]))
+>>> print(skewt.ppf([.1, .5, .9]))
 [-0.9786634   0.19359403  0.79257129]
 
 >>> print(skewt.rvs(size=(2, 3)))
@@ -91,7 +91,7 @@ class SkewStudent(object):
         Probability density function (PDF)
     cdf
         Cumulative density function (CDF)
-    icdf
+    ppf
         Inverse cumulative density function (ICDF)
     rvs
         Random variates with mean zero and unit variance
@@ -164,6 +164,24 @@ class SkewStudent(object):
         return b*c*(1 + 1/(self.eta-2) \
             *((b*arg+a)/(1+np.sign(arg+a/b)*self.lam))**2)**(-(self.eta+1)/2)
 
+    def loglikelihood(self, param, arg):
+        """Probability density function (PDF).
+
+        Parameters
+        ----------
+        arg : array
+            Grid of point to evaluate PDF at
+
+        Returns
+        -------
+        array
+            PDF values. Same shape as the input.
+
+        """
+        self.eta, self.lam = param
+
+        return -np.log(self.pdf(arg)).sum()
+
     def cdf(self, arg):
         """Cumulative density function (CDF).
 
@@ -187,7 +205,7 @@ class SkewStudent(object):
         return cond * (1-self.lam) * t.cdf(y, self.eta) \
             + ~cond * (-self.lam + (1+self.lam) * t.cdf(y, self.eta))
 
-    def icdf(self, arg):
+    def ppf(self, arg):
         """Inverse cumulative density function (ICDF).
 
         Parameters
@@ -208,18 +226,18 @@ class SkewStudent(object):
 
         cond = arg < (1-self.lam)/2
 
-        icdf1 = t.ppf(arg[cond]/(1-self.lam), self.eta)
-        icdf2 = t.ppf(.5+(arg[~cond]-(1-self.lam)/2)/(1+self.lam), self.eta)
-        icdf = -999.99*np.ones_like(arg)
-        icdf[cond] = icdf1
-        icdf[~cond] = icdf2
-        icdf = (icdf * (1+np.sign(arg-(1-self.lam)/2)*self.lam) \
+        ppf1 = t.ppf(arg / (1-self.lam), self.eta)
+        ppf2 = t.ppf(.5 + (arg - (1-self.lam)/2) / (1+self.lam), self.eta)
+        ppf = -999.99*np.ones_like(arg)
+        ppf = np.nan_to_num(ppf1) * cond \
+            + np.nan_to_num(ppf2) * np.logical_not(cond)
+        ppf = (ppf * (1+np.sign(arg-(1-self.lam)/2)*self.lam) \
             * (1-2/self.eta)**.5 - a)/b
 
-        if icdf.shape == (1, ):
-            return float(icdf)
+        if ppf.shape == (1, ):
+            return float(ppf)
         else:
-            return icdf
+            return ppf
 
     def rvs(self, size=1):
         """Random variates with mean zero and unit variance.
@@ -235,7 +253,7 @@ class SkewStudent(object):
             Array of random variates
 
         """
-        return self.icdf(uniform.rvs(size=size))
+        return self.ppf(uniform.rvs(size=size))
 
     def plot_pdf(self, arg=np.linspace(-2, 2, 100)):
         """Plot probability density function.
@@ -269,7 +287,7 @@ class SkewStudent(object):
         plt.legend()
         plt.show()
 
-    def plot_icdf(self, arg=np.linspace(.01, .99, 100)):
+    def plot_ppf(self, arg=np.linspace(.01, .99, 100)):
         """Plot inverse cumulative density function.
 
         Parameters
@@ -281,7 +299,7 @@ class SkewStudent(object):
         scale = (self.eta/(self.eta-2))**.5
         plt.plot(arg, t.ppf(arg, self.eta, scale=1/scale),
                  label='t distribution')
-        plt.plot(arg, self.icdf(arg), label='skew-t distribution')
+        plt.plot(arg, self.ppf(arg), label='skew-t distribution')
         plt.legend()
         plt.show()
 
@@ -309,5 +327,5 @@ if __name__ == '__main__':
     skewt = SkewStudent(eta=3, lam=-.5)
     skewt.plot_pdf()
     skewt.plot_cdf()
-    skewt.plot_icdf()
+    skewt.plot_ppf()
     skewt.plot_rvspdf()

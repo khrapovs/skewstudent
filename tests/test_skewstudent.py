@@ -57,20 +57,20 @@ class SkewStudentTestCase(ut.TestCase):
         self.assertEqual(cdf.shape[0], num)
         self.assertIsInstance(skewt.cdf(0), float)
 
-    def test_icdf(self):
-        """Test icdf method."""
+    def test_ppf(self):
+        """Test ppf method."""
 
         skewt = SkewStudent()
 
         num = 50
-        arg = np.linspace(0, 1, num)
-        icdf = skewt.icdf(arg)
+        arg = np.linspace(.01, .99, num)
+        ppf = skewt.ppf(arg)
 
-        self.assertEqual(icdf.shape[0], num)
-        self.assertIsInstance(skewt.icdf(.5), float)
+        self.assertEqual(ppf.shape[0], num)
+        self.assertIsInstance(skewt.ppf(.5), float)
 
     def test_rvs(self):
-        """Test icdf method."""
+        """Test ppf method."""
 
         skewt = SkewStudent()
 
@@ -101,7 +101,10 @@ class SkewStudentTestCase(ut.TestCase):
 
         np.testing.assert_array_almost_equal(skewt.pdf(arg), standt.pdf(arg))
         np.testing.assert_array_almost_equal(skewt.cdf(arg), standt.cdf(arg))
-        np.testing.assert_array_almost_equal(skewt.icdf(arg), standt.ppf(arg))
+
+        arg = np.linspace(.01, .99, 100)
+
+        np.testing.assert_array_almost_equal(skewt.ppf(arg), standt.ppf(arg))
 
 
 if __name__ == '__main__':
